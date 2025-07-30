@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SparkBox Initiative</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Inter:wght@700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <style>
+    /* Fallback: Use Inter Bold to mimic Sour Gummy Bold */
+    @font-face {
+      font-family: 'Sour Gummy';
+      src: url('https://fonts.cdnfonts.com/css/sour-gummy') format('woff2');
+      font-weight: bold;
+      font-display: swap;
+    }
+    h1, h2, h3, h4, h5, h6, .logo {
+      font-family: 'Sour Gummy', 'Inter', sans-serif !important;
+    }
+    body, p, span, div {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    :root {
+      --bg-primary: #eed884;
+      --accent-primary: #dfc03c;
+      --text-primary: #082340;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #082340;
+      --accent-primary: #336689;
+      --text-primary: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      margin: 0;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-primary);
+    }
+
+    .btn-accent {
+      background-color: var(--accent-primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    .btn-accent:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+      transform: rotate(25deg);
+    }
+
+    .logo {
+      font-family: 'Sour Gummy', 'Inter', cursive;
+      font-weight: bold;
+      font-size: 1.75rem;
+    }
+
+    .kit-card {
+      border: 1px solid #dfc03c33;
+      border-radius: 1rem;
+      overflow: hidden;
+      background-color: rgba(255,255,255,0.1);
+      transition: transform 0.3s ease;
+    }
+    .kit-card:hover {
+      transform: translateY(-6px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col" data-theme="light">
+  <!-- Force light mode by default via data-theme -->
+  <header class="py-4 px-6 md:px-10 flex justify-between items-center shadow-sm">
+    <div class="logo text-2xl">⚡ SparkBox Initiative</div>
+    <nav class="hidden md:flex space-x-8">
+      <a href="#home" class="font-semibold hover:text-[var(--accent-primary)] transition">Home</a>
+      <a href="#about" class="font-semibold hover:text-[var(--accent-primary)] transition">About</a>
+      <a href="#kits" class="font-semibold hover:text-[var(--accent-primary)] transition">Kits</a>
+      <a href="#donate" class="font-semibold hover:text-[var(--accent-primary)] transition">Donate</a>
+      <a href="#contact" class="font-semibold hover:text-[var(--accent-primary)] transition">Contact</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+      <span id="theme-icon">⚡</span>
+    </button>
+    <button id="mobile-menu-toggle" class="md:hidden text-2xl">☰</button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden bg-[var(--bg-primary)] p-6 space-y-4 md:hidden shadow-inner">
+    <a href="#home" class="block font-semibold hover:text-[var(--accent-primary)]">Home</a>
+    <a href="#about" class="block font-semibold hover:text-[var(--accent-primary)]">About</a>
+    <a href="#kits" class="block font-semibold hover:text-[var(--accent-primary)]">Kits</a>
+    <a href="#donate" class="block font-semibold hover:text-[var(--accent-primary)]">Donate</a>
+    <a href="#contact" class="block font-semibold hover:text-[var(--accent-primary)]">Contact</a>
+  </div>
+
+  <main class="flex-grow">
+    <!-- Home Section -->
+    <section id="home" class="py-20 px-6 text-center">
+      <div class="max-w-4xl mx-auto">
+        <img src="/assets/logo.png" alt="SparkBox Initiative Logo" class="w-24 h-24 mx-auto mb-6"/>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Ignite Curiosity. Empower Learners.</h1>
+        <p class="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+          Founded by Tolu Adewuyi, Philip Thang, and Gaby Martinez Gil, SparkBox Initiative is a hands-on STEM education initiative that delivers the fundamentals of engineering and science to students, especially in underfunded or overlooked schools, through engaging kits (“Sparkboxes”) and guided lessons.
+        </p>
+        <div class="space-x-4">
+          <a href="#kits" class="btn-accent">Explore Kits</a>
+          <a href="#donate" class="btn-accent opacity-90 hover:opacity-100">Donate Today</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-6">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-10">Our Story</h2>
+        <div class="grid md:grid-cols-2 gap-10 items-center mb-16">
+          <div>
+            <h3 class="text-2xl font-semibold mb-4">Why SparkBox?</h3>
+            <p class="mb-4">
+              We believe every student deserves access to high-quality STEM education. Too many schools lack the resources to teach science through hands-on exploration. That’s where SparkBox comes in.
+            </p>
+            <p>
+              Our kits bridge the gap between theory and practice, turning abstract concepts into tangible experiences. We focus on equity, innovation, and fun—because learning should spark joy.
+            </p>
+          </div>
+          <div class="bg-white/20 p-6 rounded-xl backdrop-blur-sm">
+            <h3 class="text-xl font-semibold mb-4">Our Founders</h3>
+            <ul class="space-y-3">
+              <li><strong>Tolu Adewuyi:</strong> Educator and advocate for inclusive tech literacy.</li>
+              <li><strong>Philip Thang:</strong> Engineer passionate about low-cost, high-impact learning tools.</li>
+              <li><strong>Gaby Martinez Gil:</strong> Community organizer and STEM outreach leader.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kits Section -->
+    <section id="kits" class="py-16 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Our SparkBox Kits</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Electromagnet+Explorer" alt="Electromagnet Explorer Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Electromagnet Explorer</h3>
+            <p>Learn how electricity can create magnetic fields! Build your own electromagnet and test its strength with different coils and voltages.</p>
+          </div>
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Conductivity+Quest" alt="Conductivity Quest Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Conductivity Quest</h3>
+            <p>Discover what materials conduct electricity best! Test everyday objects and build simple circuits to understand conductivity.</p>
+          </div>
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Circuit+Builder" alt="Circuit Builder Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Circuit Builder</h3>
+            <p>Design and assemble basic circuits with LEDs, resistors, and switches. Learn series vs. parallel and troubleshoot like a pro.</p>
+          </div>
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Solar+Charger" alt="Solar Charger Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Solar Charger</h3>
+            <p>Harvest energy from the sun! Build a mini solar panel circuit and power small devices—perfect for eco-conscious learners.</p>
+          </div>
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Robot+Arm" alt="Robot Arm Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Robot Arm</h3>
+            <p>Construct a simple robotic arm using servos and levers. Introduce mechanics and control systems in a fun, tactile way.</p>
+          </div>
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Weather+Station" alt="Weather Station Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Weather Station</h3>
+            <p>Measure temperature, humidity, and air pressure. Collect data and learn about environmental science firsthand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="py-16 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Fund a Spark</h2>
+        <p class="text-lg mb-8">
+          Just $25 funds a complete STEM kit for a student in need. Your donation helps us deliver hands-on learning to classrooms that lack resources.
+        </p>
+        <div id="donation-widget" class="bg-white/10 p-8 rounded-xl mb-8 max-w-md mx-auto backdrop-blur-sm border border-white/20">
+          [Embed HCB widget here]
+        </div>
+        <p class="text-sm opacity-80">
+          SparkBox Initiative is a registered nonprofit. All donations are tax-deductible.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-6">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-10">Get in Touch</h2>
+        <form id="contact-form" class="space-y-6">
+          <div>
+            <label for="name" class="block mb-2 font-semibold">Name</label>
+            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--accent-primary)] outline-none"/>
+          </div>
+          <div>
+            <label for="email" class="block mb-2 font-semibold">Email</label>
+            <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--accent-primary)] outline-none"/>
+          </div>
+          <div>
+            <label for="message" class="block mb-2 font-semibold">Message</label>
+            <textarea id="message" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--accent-primary)] outline-none"></textarea>
+          </div>
+          <button type="submit" class="btn-accent">Send Message</button>
+        </form>
+        <div id="form-success" class="mt-6 p-4 bg-green-100 text-green-800 rounded-lg hidden">
+          Thank you! Your message has been sent.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-8 px-6 bg-[var(--accent-primary)] text-white text-center">
+    <div class="max-w-4xl mx-auto">
+      <p class="mb-4">&copy; 2024 SparkBox Initiative. Empowering young minds through hands-on STEM.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="#" aria-label="Facebook" class="hover:opacity-80">📘</a>
+        <a href="#" aria-label="Twitter" class="hover:opacity-80">🐦</a>
+        <a href="#" aria-label="Instagram" class="hover:opacity-80">📸</a>
+        <a href="#" aria-label="LinkedIn" class="hover:opacity-80">💼</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle (No localStorage — works in sandboxed environments)
+    const htmlEl = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        htmlEl.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '🔌'; // circuit plug
+      } else {
+        htmlEl.setAttribute('data-theme', 'light');
+        themeIcon.textContent = '⚡'; // lightning bolt
+      }
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Contact Form Submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('form-success').classList.remove('hidden');
+      this.reset();
+      setTimeout(() => {
+        document.getElementById('form-success').classList.add('hidden');
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
