@@ -4,23 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SparkBox Initiative</title>
-  <!-- Nunito from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Sour Gummy Bold from CDNFonts -->
-  <link href="https://fonts.cdnfonts.com/css/sour-gummy" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+
   <style>
-    /* Fallback: Use Inter Bold to mimic Sour Gummy Bold */
-    @font-face {
-      font-family: 'Sour Gummy';
-      src: url('https://fonts.cdnfonts.com/css/sour-gummy') format('woff2');
-      font-weight: bold;
-      font-display: swap;
-    }
+
     h1, h2, h3, h4, h5, h6, .logo {
-      font-family: 'Sour Gummy', 'Inter', sans-serif !important;
+      font-family: 'Sour Gummy', cursive;
+      letter-spacing: -0.03em;
     }
-    body, p, span, div {
+    body, p, span, input, textarea {
       font-family: 'Nunito', sans-serif;
     }
 
@@ -41,10 +36,6 @@
       color: var(--text-primary);
       margin: 0;
       transition: background-color 0.5s ease, color 0.5s ease;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--text-primary);
     }
 
     .btn-accent {
@@ -78,8 +69,6 @@
     }
 
     .logo {
-      font-family: 'Sour Gummy', 'Inter', cursive;
-      font-weight: bold;
       font-size: 1.75rem;
     }
 
@@ -96,9 +85,10 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col" data-theme="light">
-  <!-- Force light mode by default via data-theme -->
+
+  <!-- Header -->
   <header class="py-4 px-6 md:px-10 flex justify-between items-center shadow-sm">
-    <div class="logo text-2xl">⚡ SparkBox Initiative</div>
+    <div class="logo font-bold">⚡ SparkBox Initiative</div>
     <nav class="hidden md:flex space-x-8">
       <a href="#home" class="font-semibold hover:text-[var(--accent-primary)] transition">Home</a>
       <a href="#about" class="font-semibold hover:text-[var(--accent-primary)] transition">About</a>
@@ -122,7 +112,8 @@
   </div>
 
   <main class="flex-grow">
-    <!-- Home Section -->
+
+    <!-- Home -->
     <section id="home" class="py-20 px-6 text-center">
       <div class="max-w-4xl mx-auto">
         <img src="/assets/logo.png" alt="SparkBox Initiative Logo" class="w-24 h-24 mx-auto mb-6"/>
@@ -131,13 +122,13 @@
           Founded by Tolu Adewuyi, Philip Thang, and Gaby Martinez Gil, SparkBox Initiative is a hands-on STEM education initiative that delivers the fundamentals of engineering and science to students, especially in underfunded or overlooked schools, through engaging kits (“Sparkboxes”) and guided lessons.
         </p>
         <div class="space-x-4">
-          <a href="#kits" class="btn-accent">Explore Kits</a>
+          <a href="#kits" class="btn-accent">Explore Kit</a>
           <a href="#donate" class="btn-accent opacity-90 hover:opacity-100">Donate Today</a>
         </div>
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section id="about" class="py-16 px-6">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-10">Our Story</h2>
@@ -163,46 +154,21 @@
       </div>
     </section>
 
-    <!-- Kits Section -->
+    <!-- Kits (Only Electromagnet Explorer) -->
     <section id="kits" class="py-16 px-6">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Our SparkBox Kits</h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="kit-card p-6">
-            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Electromagnet+Explorer" alt="Electromagnet Explorer Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Electromagnet Explorer</h3>
-            <p>Learn how electricity can create magnetic fields! Build your own electromagnet and test its strength with different coils and voltages.</p>
-          </div>
-          <div class="kit-card p-6">
-            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Conductivity+Quest" alt="Conductivity Quest Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Conductivity Quest</h3>
-            <p>Discover what materials conduct electricity best! Test everyday objects and build simple circuits to understand conductivity.</p>
-          </div>
-          <div class="kit-card p-6">
-            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Circuit+Builder" alt="Circuit Builder Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Circuit Builder</h3>
-            <p>Design and assemble basic circuits with LEDs, resistors, and switches. Learn series vs. parallel and troubleshoot like a pro.</p>
-          </div>
-          <div class="kit-card p-6">
-            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Solar+Charger" alt="Solar Charger Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Solar Charger</h3>
-            <p>Harvest energy from the sun! Build a mini solar panel circuit and power small devices—perfect for eco-conscious learners.</p>
-          </div>
-          <div class="kit-card p-6">
-            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Robot+Arm" alt="Robot Arm Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Robot Arm</h3>
-            <p>Construct a simple robotic arm using servos and levers. Introduce mechanics and control systems in a fun, tactile way.</p>
-          </div>
-          <div class="kit-card p-6">
-            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Weather+Station" alt="Weather Station Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Weather Station</h3>
-            <p>Measure temperature, humidity, and air pressure. Collect data and learn about environmental science firsthand.</p>
-          </div>
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-12">Featured Kit</h2>
+        <div class="kit-card p-8 bg-white/10 backdrop-blur-sm rounded-xl">
+          <img src="https://placehold.co/400x250/dfc03c/ffffff?text=Electromagnet+Explorer" alt="Electromagnet Explorer Kit" class="w-full h-56 object-cover rounded-lg mb-6 mx-auto"/>
+          <h3 class="text-2xl font-bold mb-3">Electromagnet Explorer</h3>
+          <p class="text-lg">
+            Learn how electricity can create magnetic fields! Build your own electromagnet and test its strength with different coils and voltages. Perfect for classrooms and curious minds.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Donate Section -->
+    <!-- Donate -->
     <section id="donate" class="py-16 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl font-bold mb-6">Fund a Spark</h2>
@@ -218,7 +184,7 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" class="py-16 px-6">
       <div class="max-w-3xl mx-auto">
         <h2 class="text-3xl font-bold text-center mb-10">Get in Touch</h2>
@@ -242,6 +208,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- Footer -->
@@ -257,8 +224,9 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    // Theme Toggle (No localStorage — works in sandboxed environments)
+    // Theme Toggle
     const htmlEl = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
@@ -267,20 +235,20 @@
       const currentTheme = htmlEl.getAttribute('data-theme');
       if (currentTheme === 'light') {
         htmlEl.setAttribute('data-theme', 'dark');
-        themeIcon.textContent = '🔌'; // circuit plug
+        themeIcon.textContent = '🔌';
       } else {
         htmlEl.setAttribute('data-theme', 'light');
-        themeIcon.textContent = '⚡'; // lightning bolt
+        themeIcon.textContent = '⚡';
       }
     });
 
-    // Mobile Menu Toggle
+    // Mobile Menu
     const mobileMenu = document.getElementById('mobile-menu');
     document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
 
-    // Contact Form Submission
+    // Contact Form
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
       document.getElementById('form-success').classList.remove('hidden');
