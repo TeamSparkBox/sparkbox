@@ -154,6 +154,20 @@
       transform: translateY(-6px);
     }
 
+    /* Donation tier card style - matches kit cards */
+    .donation-card {
+      border: 1px solid #dfc03c33;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      transition: transform 0.3s ease;
+      padding: 1.5rem;
+    }
+    .donation-card:hover {
+      transform: translateY(-6px);
+    }
+
     /* Alternating section backgrounds with slanted edges */
     section {
       position: relative;
@@ -211,16 +225,20 @@
 
   <!-- ========== STICKY HEADER ========== -->
   <header class="py-4 px-6 md:px-10 flex justify-between items-center transition-all duration-300">
+    <!-- Logo with image -->
     <div class="logo flex items-center font-bold">
-  <img src="/assets/logo.png" alt="SparkBox Initiative Logo" class="h-8 w-auto mr-2"/>
-  SparkBox Initiative
-</div>
-    <nav class="hidden md:flex space-x-8">
+      <img src="/assets/logo.png" alt="SparkBox Initiative Logo" class="h-8 w-auto mr-2"/>
+      SparkBox Initiative
+    </div>
+    
+    <!-- Navigation Menu - Right Aligned -->
+    <nav class="hidden md:flex space-x-8 ml-auto">
       <a href="#home" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Home</a>
       <a href="#about" class="nav-link hover:text-[var(--accent-primary)] scroll-link">About</a>
       <a href="#kits" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Kits</a>
       <a href="#donate" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Donate</a>
     </nav>
+    
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
       <span id="theme-icon">⚡</span>
     </button>
@@ -240,7 +258,8 @@
     <!-- ========== Home Section ========== -->
     <section id="home" class="py-20 px-6 text-center">
       <div class="max-w-4xl mx-auto">
-        <img src="/assets/logo.png" alt="SparkBox Initiative Logo" class="w-72 h-72 mx-auto mb-6"/>
+        <!-- Use different logo for home section -->
+        <img src="/assets/combologo.png" alt="SparkBox Initiative Logo" class="w-32 h-32 mx-auto mb-6"/>
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Ignite Curiosity. Empower Learners.</h1>
         <p class="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto">
           Founded by Tolu Adewuyi, Philip Thang, and Gaby Martinez Gil, SparkBox Initiative is a hands-on STEM education initiative that delivers the fundamentals of engineering and science to students, especially in underfunded or overlooked schools, through engaging kits ("Sparkboxes") and guided lessons.
@@ -280,15 +299,41 @@
 
     <!-- ========== Kits Section ========== -->
     <section id="kits" class="py-16 px-6 slant-bottom section-offset">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12">Featured Kit</h2>
-        <div class="kit-card p-8 bg-white/10 backdrop-blur-sm rounded-xl">
-          <img src="https://placehold.co/400x250/dfc03c/ffffff?text=Electromagnet+Explorer" alt="Electromagnet Explorer Kit" class="w-full h-56 object-cover rounded-lg mb-6 mx-auto"/>
-          <h3 class="text-2xl font-bold mb-3">Electromagnet Explorer</h3>
-          <p class="text-lg">
-            Learn how electricity can create magnetic fields! Build your own electromagnet and test its strength with different coils and voltages. Perfect for classrooms and curious minds.
-          </p>
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-12">Our SparkBox Kits</h2>
+        
+        <!-- Kit Grid -->
+        <div id="kit-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Kit Template - Copy this block to add new kits -->
+          <div class="kit-card p-6">
+            <img src="https://placehold.co/300x200/dfc03c/ffffff?text=Electromagnet+Explorer" alt="Electromagnet Explorer Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+            <h3 class="text-xl font-bold mb-2">Electromagnet Explorer</h3>
+            <p>Learn how electricity can create magnetic fields! Build your own electromagnet and test its strength with different coils and voltages.</p>
+          </div>
+          <!-- End of kit template -->
+          
+          <!-- Add more kit cards by copying the block above -->
+          
         </div>
+        
+        <!-- How to Add More Kits (hidden in production) -->
+        <!-- 
+        To add a new kit:
+        1. Copy the entire <div class="kit-card"> block above
+        2. Change the image src, alt text, title, and description
+        3. Paste it before the closing </div> of the grid
+        Example:
+        
+        <div class="kit-card p-6">
+          <img src="/assets/kits/conductivity-quest.jpg" alt="Conductivity Quest Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
+          <h3 class="text-xl font-bold mb-2">Conductivity Quest</h3>
+          <p>Discover what materials conduct electricity best! Test everyday objects and build simple circuits to understand conductivity.</p>
+        </div>
+        
+        The grid will automatically adjust for 2 or 3 columns based on screen size.
+        -->
+        
       </div>
     </section>
 
@@ -297,19 +342,19 @@
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl font-bold mb-6">Fund a Spark</h2>
         
-        <!-- Donation Tiers -->
+        <!-- Donation Tiers with kit-like styling -->
         <div class="grid md:grid-cols-3 gap-6 my-8">
-          <div class="bg-white/20 p-6 rounded-xl backdrop-blur-sm transform hover:scale-105 transition">
+          <div class="donation-card">
             <h3 class="text-xl font-bold mb-2">Curiosity Catalyst</h3>
             <p class="mb-4">Every $10 sponsors one reusable kit, delivered to a student who's never held a motor, lit a circuit, or built with their hands before.</p>
             <p class="text-2xl font-bold">$10/month</p>
           </div>
-          <div class="bg-white/20 p-6 rounded-xl backdrop-blur-sm transform hover:scale-105 transition">
+          <div class="donation-card">
             <h3 class="text-xl font-bold mb-2">Spark Sponsor</h3>
             <p class="mb-4">Your $20 sponsors two reusable kits, sparking interest in STEM for two future engineers.</p>
             <p class="text-2xl font-bold">$20/month</p>
           </div>
-          <div class="bg-white/20 p-6 rounded-xl backdrop-blur-sm transform hover:scale-105 transition">
+          <div class="donation-card">
             <h3 class="text-xl font-bold mb-2">STEM Superhero</h3>
             <p class="mb-4">Giving $50 is a huge commitment not everyone can do. You're making it possible for five kids to have an experience that will change their lives for the better.</p>
             <p class="text-2xl font-bold">$50/month</p>
