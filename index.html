@@ -398,9 +398,9 @@
             -->
             <img src="/assets/founder/tolu.png" alt="Tolu Adewuyi" class="founder-img"/>
             <h3 class="text-xl font-bold mb-2">Tolu Adewuyi</h3>
-            <p class="text-sm mb-3">Aspiring Electrical Engineer</p>
+            <p class="text-sm mb-3">Educator & Tech Advocate</p>
             <p class="text-sm leading-relaxed">
-              Tolu Adewuyi is a rising junior and electrical engineering enthusiast dedicated to making STEM education accessible and engaging. As the founder of SparkBox Initiative, Tolu combines a passion for hands-on learning with a commitment to empowering underserved students through innovative, reusable science kits. Beyond SparkBox, Tolu runs the YouTube channel Archrono, where entertaining visuals bring complex engineering concepts to life. Driven by a vision to ignite curiosity and build future innovators, Tolu balances academic rigor with impactful outreach, proving that creativity and engineering go hand in hand.
+              Tolu brings years of classroom experience and a passion for making technology accessible to all students, regardless of background. She believes every child should have the chance to build, create, and innovate.
             </p>
           </div>
           
@@ -555,6 +555,7 @@
       const mobileMenu = document.getElementById('mobile-menu');
       const progressBar = document.getElementById('progress-bar');
       const progressText = document.getElementById('progress-text');
+      const donateSection = document.getElementById('donate');
 
       // Smooth scrolling with offset
       document.querySelectorAll('.scroll-link').forEach(anchor => {
@@ -606,21 +607,62 @@
         mobileMenu.classList.toggle('hidden');
       });
 
-      // Progress Bar Animation
-      // UPDATE THESE VALUES TO CHANGE THE PROGRESS
-      const currentAmount = 50$;  // Current donations this month
-      const goalAmount = 250$;    // Monthly goal
+      // Progress Bar Animation - Scroll triggered
+      const updateProgressBar = () => {
+        // UPDATE THESE VALUES TO CHANGE THE PROGRESS
+        const currentAmount = 50;   // Current donations this month
+        const goalAmount = 250;     // Monthly goal
+        
+        // Validate inputs
+        if (currentAmount < 0 || goalAmount <= 0) {
+          console.error('Invalid progress values: currentAmount must be >= 0, goalAmount must be > 0');
+          return;
+        }
+        
+        // Calculate percentage (capped at 100%)
+        const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
+        
+        // Format numbers with commas
+        const formattedCurrent = currentAmount.toLocaleString();
+        const formattedGoal = goalAmount.toLocaleString();
+        
+        // Update progress bar
+        progressBar.style.width = '0%';
+        setTimeout(() => {
+          progressBar.style.width = `${percentage}%`;
+        }, 100);
+        
+        // Update progress text
+        progressText.textContent = `We've raised $${formattedCurrent} of our $${formattedGoal} monthly goal!`;
+      };
+
+      // Check if element is in viewport
+      const isInViewport = (element) => {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.bottom >= 0
+        );
+      };
+
+      // Scroll event listener for progress bar
+      let progressBarAnimated = false;
       
-      // Calculate percentage
-      const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
-      
-      // Update progress bar
-      setTimeout(() => {
-        progressBar.style.width = `${percentage}%`;
-      }, 500);
-      
-      // Update progress text
-      progressText.textContent = `We've raised $${currentAmount.toLocaleString()} of our $${goalAmount.toLocaleString()} monthly goal!`;
+      const handleScroll = () => {
+        if (isInViewport(donateSection) && !progressBarAnimated) {
+          updateProgressBar();
+          progressBarAnimated = true;
+        }
+      };
+
+      // Initial check in case section is already in view
+      if (isInViewport(donateSection)) {
+        updateProgressBar();
+        progressBarAnimated = true;
+      }
+
+      // Listen for scroll events
+      window.addEventListener('scroll', handleScroll);
     });
   </script>
 </body>
