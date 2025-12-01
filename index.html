@@ -1,669 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SparkBox Initiative</title>
-
-  <!-- Use 'Sour Gummy' from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
-
-  <!-- Tailwind CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-
-  <!-- Favicon -->
-  <link rel="icon" href="/assets/logo.png" type="image/png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SparkBox — Coming Soon</title>
 
   <style>
-    /* Use 'Sour Gummy' for headings and logo */
-    h1, h2, h3, h4, h5, h6, .logo {
-      font-family: 'Sour Gummy', cursive;
-      letter-spacing: -0.03em;
+    /* If you have Tektur.woff2, put it in the same folder and uncomment the @font-face below */
+    /*
+    @font-face {
+      font-family: "Tektur";
+      src: url("Tektur.woff2") format("woff2");
+      font-weight: 400 900;
+      font-style: normal;
+      font-display: swap;
     }
-    body, p, span, input, textarea {
-      font-family: 'Nunito', sans-serif;
+    */
+
+    :root{
+      --bg:#000000;
+      --gold:#ffb600;
     }
 
-    /* Light Mode Colors with Gradient */
-    :root {
-      --bg-primary: #f9e9bd;
-      --bg-secondary: #f0dcb0;
-      --accent-primary: #dfc03c;
-      --text-primary: #082340;
-      --glow-color: rgba(223, 192, 60, 0.4);
-      --highlight-bg: #ffd028;
-      --highlight-text: #082340;
-      --progress-bg: linear-gradient(90deg, #dfc03c, #ffd028);
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:var(--gold);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Dark Mode Colors with Gradient */
-    [data-theme="dark"] {
-      --bg-primary: #0a2c4f;
-      --bg-secondary: #061d35;
-      --accent-primary: #336689;
-      --text-primary: #ffffff;
-      --glow-color: rgba(51, 102, 137, 0.4);
-      --highlight-bg: #1d62bc;
-      --highlight-text: #ffffff;
-      --progress-bg: linear-gradient(90deg, #336689, #1d62bc);
+    /* Use Tektur if available, otherwise use reasonable fallbacks */
+    body{
+      font-family: "Tektur", "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      margin: 0;
-      transition: background-color 0.5s ease, color 0.5s ease;
+    .v{
+      text-align:center;
+      padding:2rem;
+      width:100%;
+      max-width:1200px;
     }
 
-    /* Sticky Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-      box-shadow: 0 2px 15px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
+    h1{
+      margin:0;
+      font-weight:700;
+      font-size:clamp(2.2rem, 6vw, 7.5rem);
+      line-height:0.96;
+      letter-spacing:0.02em;
+      color:var(--gold);
+      text-transform:none;
+      transform:translateZ(0);
+      /* punchy glow */
+      text-shadow:
+        0 0 30px rgba(255,182,0,0.08),
+        0 6px 32px rgba(0,0,0,0.7),
+        0 0 2px rgba(255,182,0,0.35);
+      /* subtle breathing */
+      animation: breathe 3.8s ease-in-out infinite;
     }
 
-    /* Navigation link glow effect */
-    .nav-link {
-      position: relative;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent-primary);
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover {
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .nav-link:hover::after {
-      width: 100%;
+    p.lead{
+      margin-top:1.1rem;
+      font-size:clamp(0.95rem, 1.6vw, 1.25rem);
+      opacity:0.85;
+      color:var(--gold);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.75);
+      letter-spacing:0.06em;
     }
 
-    /* Offset for anchor links to prevent header overlap */
-    .section-offset {
-      scroll-margin-top: 80px;
+    /* tiny accent line under the headline for aesthetic */
+    .bar{
+      height:4px;
+      width:160px;
+      margin:1.25rem auto 0;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,182,0,1), rgba(255,182,0,0.6));
+      box-shadow: 0 6px 30px rgba(255,182,0,0.06);
+      opacity:0.95;
     }
 
-    .btn-accent {
-      background: linear-gradient(135deg, var(--accent-primary), #e6a82e);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      display: inline-block;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .btn-accent:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    @keyframes breathe{
+      0% { transform: scale(1) translateZ(0); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+      50% { transform: scale(1.01) translateZ(0); filter: drop-shadow(0 10px 40px rgba(0,0,0,0.6)); }
+      100% { transform: scale(1) translateZ(0); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
     }
 
-    .theme-toggle {
-      cursor: pointer;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-primary), #e6a82e);
-      color: white;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      position: relative;
-      overflow: hidden;
-      z-index: 10;
-      margin-left: 1rem;
-    }
-    
-    .theme-toggle::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: var(--accent-primary);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.8s ease, height 0.8s ease;
-      z-index: -1;
-    }
-    
-    .theme-toggle.active::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    .logo {
-      font-size: 1.75rem;
-    }
-
-    .kit-card {
-      border: 1px solid #dfc03c33;
-      border-radius: 1rem;
-      overflow: hidden;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(4px);
-      transition: transform 0.3s ease;
-    }
-    .kit-card:hover {
-      transform: translateY(-6px);
-    }
-
-    /* Donation tier card style - matches kit cards */
-    .donation-card {
-      border: 1px solid #dfc03c33;
-      border-radius: 1rem;
-      overflow: hidden;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(4px);
-      transition: transform 0.3s ease;
-      padding: 1.5rem;
-    }
-    .donation-card:hover {
-      transform: translateY(-6px);
-    }
-
-    /* Founder card style */
-    .founder-card {
-      border: 1px solid #dfc03c33;
-      border-radius: 1rem;
-      overflow: hidden;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(4px);
-      transition: transform 0.3s ease;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .founder-card:hover {
-      transform: translateY(-6px);
-    }
-    .founder-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-      border: 3px solid var(--accent-primary);
-    }
-
-    /* Progress bar styles */
-    .progress-container {
-      background: rgba(255,255,255,0.1);
-      border-radius: 9999px;
-      padding: 4px;
-      margin: 2rem auto;
-      max-width: 600px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1) inset;
-    }
-    
-    .progress-bar {
-      height: 20px;
-      border-radius: 9999px;
-      background: var(--progress-bg);
-      width: 0%;
-      transition: width 1s ease;
-      position: relative;
-    }
-    
-    .progress-bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shimmer 2s infinite;
-    }
-    
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    
-    .progress-text {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-
-    /* Alternating section backgrounds with slanted edges */
-    section {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .slant-top::before {
-      content: '';
-      position: absolute;
-      top: -10%;
-      left: -10%;
-      right: -10%;
-      height: 30%;
-      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-      clip-path: polygon(0% 100%, 100% 0%, 100% 100%);
-      z-index: -1;
-    }
-
-    .slant-bottom::after {
-      content: '';
-      position: absolute;
-      bottom: -10%;
-      left: -10%;
-      right: -10%;
-      height: 30%;
-      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-      clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
-      z-index: -1;
-    }
-
-    /* Alternating background colors */
-    section:nth-child(even):not(#home) {
-      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
-    }
-
-    /* Ensure home section is full height and clean */
-    #home {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    #home::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 30% 30%, rgba(223, 192, 60, 0.1), transparent 40%),
-                  radial-gradient(circle at 70% 70%, rgba(223, 192, 60, 0.1), transparent 40%);
-      z-index: -1;
-    }
-
-    /* Highlighted tagline container */
-    .highlight-container {
-      display: inline-block;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 1rem;
-      background-color: var(--highlight-bg);
-      color: var(--highlight-text);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+    /* small screen spacing */
+    @media (max-width:420px){
+      .bar{ width:90px; height:3px; margin-top:0.9rem; }
+      p.lead{ margin-top:0.9rem; }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col" data-theme="light">
-
-  <!-- ========== STICKY HEADER ========== -->
-  <header class="py-4 px-6 md:px-10 flex justify-between items-center transition-all duration-300">
-    <!-- Logo with image -->
-    <div class="logo flex items-center font-bold">
-      <img src="/assets/logo.png" alt="SparkBox Initiative Logo" class="h-8 w-auto mr-2"/>
-      SparkBox Initiative
-    </div>
-    
-    <!-- Navigation Menu - Right Aligned -->
-    <nav class="hidden md:flex space-x-8 ml-auto mr-4">
-      <a href="#home" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Home</a>
-      <a href="#why" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Why</a>
-      <a href="#founders" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Founders</a>
-      <a href="#kits" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Kits</a>
-      <a href="#donate" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Donate</a>
-    </nav>
-    
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-      <span id="theme-icon">⚡</span>
-    </button>
-    <button id="mobile-menu-toggle" class="md:hidden text-2xl">☰</button>
-  </header>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden bg-[var(--bg-primary)] p-6 space-y-4 md:hidden shadow-inner">
-    <a href="#home" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Home</a>
-    <a href="#why" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Why</a>
-    <a href="#founders" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Founders</a>
-    <a href="#kits" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Kits</a>
-    <a href="#donate" class="nav-link hover:text-[var(--accent-primary)] scroll-link">Donate</a>
+<body>
+  <div class="v" role="main" aria-label="Coming soon">
+    <h1>The new website is on the way</h1>
+    <div class="bar" aria-hidden="true"></div>
+    <p class="lead">Rebuilding. Making it cleaner, faster, and properly sparkly.</p>
   </div>
-
-  <main class="flex-grow">
-
-    <!-- ========== Home Section ========== -->
-    <section id="home" class="py-20 px-6 text-center">
-      <div class="max-w-4xl mx-auto">
-        <!-- Use different logo for home section -->
-        <img src="/assets/combologo.png" alt="SparkBox Initiative Logo" class="max-h-48 w-auto mx-auto mb-6 object-contain"/>
-        
-        <!-- Highlighted Tagline -->
-        <div class="highlight-container">
-          <h1 class="text-3xl md:text-4xl font-bold">Ignite Curiosity. Empower Learners.</h1>
-        </div>
-        
-        <p class="text-lg md:text-xl mb-8 opacity-90 max-w-3xl mx-auto">
-          Founded by Tolu Adewuyi, Philip Thang, and Gaby Martinez Gil, SparkBox Initiative is a hands-on STEM education initiative that delivers the fundamentals of engineering and science to students, especially in underfunded or overlooked schools, through engaging kits ("Sparkboxes") and guided lessons.
-        </p>
-        <div class="space-x-4">
-          <a href="#kits" class="btn-accent scroll-link">Explore Kit</a>
-          <a href="#donate" class="btn-accent opacity-90 hover:opacity-100 scroll-link">Donate Today</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Why SparkBox Section ========== -->
-    <section id="why" class="py-16 px-6 slant-top section-offset">
-      <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-10">Why SparkBox?</h2>
-        <div class="bg-white/20 p-8 rounded-xl backdrop-blur-sm max-w-3xl mx-auto">
-          <p class="text-lg leading-relaxed">
-            We believe every student deserves access to high-quality STEM education. Too many schools lack the resources to teach science through hands-on exploration. That's where SparkBox comes in.
-          </p>
-          <p class="text-lg leading-relaxed mt-6">
-            Our kits bridge the gap between theory and practice, turning abstract concepts into tangible experiences. We focus on equity, innovation, and fun—because learning should spark joy.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Founders Section ========== -->
-    <section id="founders" class="py-16 px-6 slant-bottom section-offset">
-      <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12">Our Founders</h2>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Founder 1 -->
-          <div class="founder-card">
-            <!-- 
-            HOW TO REPLACE IMAGE:
-            1. Save your founder's photo in /assets/ (e.g., /assets/founders/tolu.jpg)
-            2. Replace the src attribute below with your image path
-            3. Keep the same classes for consistent styling
-            Example: src="/assets/founders/tolu.jpg"
-            -->
-            <img src="/assets/founder/tolu.png" alt="Tolu Adewuyi" class="founder-img"/>
-            <h3 class="text-xl font-bold mb-2">Tolu Adewuyi</h3>
-            <p class="text-sm mb-3">CEO</p>
-            <p class="text-sm leading-relaxed">
-             Tolu Adewuyi is a rising junior and electrical engineering enthusiast dedicated to making STEM education accessible and engaging. As the founder of SparkBox Initiative, Tolu combines a passion for hands-on learning with a commitment to empowering underserved students through innovative, reusable science kits. Beyond SparkBox, Tolu runs the YouTube channel Archrono, where entertaining visuals bring complex engineering concepts to life. Driven by a vision to ignite curiosity and build future innovators, Tolu balances academic rigor with impactful outreach, proving that creativity and engineering go hand in hand.
-            </p>
-          </div>
-          
-          <!-- Founder 2 -->
-          <div class="founder-card">
-            <!-- 
-            HOW TO REPLACE IMAGE:
-            1. Save your founder's photo in /assets/ (e.g., /assets/founders/philip.jpg)
-            2. Replace the src attribute below with your image path
-            3. Keep the same classes for consistent styling
-            Example: src="/assets/founders/philip.jpg"
-            -->
-            <img src="https://placehold.co/150x150/dfc03c/ffffff?text=Philip+T" alt="Philip Thang" class="founder-img"/>
-            <h3 class="text-xl font-bold mb-2">Philip Thang</h3>
-            <p class="text-sm mb-3">Creative Director</p>
-            <p class="text-sm leading-relaxed">
-             Philip's Bio is unfinished, but will be here soon!
-            </p>
-          </div>
-          
-          <!-- Founder 3 -->
-          <div class="founder-card">
-            <!-- 
-            HOW TO REPLACE IMAGE:
-            1. Save your founder's photo in /assets/ (e.g., /assets/founders/gaby.jpg)
-            2. Replace the src attribute below with your image path
-            3. Keep the same classes for consistent styling
-            Example: src="/assets/founders/gaby.jpg"
-            -->
-            <img src="https://placehold.co/150x150/dfc03c/ffffff?text=Gaby+M" alt="Gaby Martinez Gil" class="founder-img"/>
-            <h3 class="text-xl font-bold mb-2">Gaby Martinez Gil</h3>
-            <p class="text-sm mb-3">Web Design</p>
-            <p class="text-sm leading-relaxed">
-             Gaby's Bio is unfinished, but will be here soon!
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Kits Section ========== -->
-    <section id="kits" class="py-16 px-6 slant-top section-offset">
-      <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-12">Our SparkBox Kits</h2>
-        
-        <!-- Kit Grid -->
-        <div id="kit-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <!-- Kit Template - Copy this block to add new kits -->
-          <div class="kit-card p-6">
-            <img src="/assets/Electromagnet.png" alt="Electromagnet Explorer Kit" class="w-full h-40 object-cover rounded-lg mb-4"/>
-            <h3 class="text-xl font-bold mb-2">Electromagnet Explorer</h3>
-            <p>Learn how electricity can create magnetic fields! Build your own electromagnet and test its strength with different coils and voltages.</p>
-          </div>
-          <!-- End of kit template -->
-          
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- ========== Donate Section ========== -->
-    <section id="donate" class="py-16 px-6 slant-bottom section-offset">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-6">Fund a Spark</h2>
-        
-        <!-- Progress Bar -->
-        <div class="progress-container">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
-        <div class="progress-text" id="progress-text">
-          Help us reach our $250 monthly goal to sponsor 25 kits!
-        </div>
-        
-        <!-- Donation Tiers -->
-        <div class="grid md:grid-cols-3 gap-6 my-8">
-          <div class="donation-card">
-            <h3 class="text-xl font-bold mb-2">Curiosity Catalyst</h3>
-            <p class="mb-4">Every $10 sponsors one reusable kit, delivered to a student who's never held a motor, lit a circuit, or built with their hands before.</p>
-            <p class="text-2xl font-bold">$10/month</p>
-          </div>
-          <div class="donation-card">
-            <h3 class="text-xl font-bold mb-2">Spark Sponsor</h3>
-            <p class="mb-4">Your $20 sponsors two reusable kits, sparking interest in STEM for two future engineers.</p>
-            <p class="text-2xl font-bold">$20/month</p>
-          </div>
-          <div class="donation-card">
-            <h3 class="text-xl font-bold mb-2">STEM Superhero</h3>
-            <p class="mb-4">Giving $50 is a huge commitment not everyone can do. You're making it possible for five kids to have an experience that will change their lives for the better.</p>
-            <p class="text-2xl font-bold">$50/month</p>
-          </div>
-        </div>
-
-        <!-- Custom Donation Option -->
-        <div class="bg-white/20 p-6 rounded-xl backdrop-blur-sm max-w-md mx-auto my-8">
-          <h3 class="text-xl font-bold mb-4">Custom Donation</h3>
-          <p class="mb-4">Prefer to choose your own amount? Your support at any level helps us bring hands-on STEM to more students.</p>
-          <div class="flex justify-center">
-            <iframe 
-              src="https://hcb.hackclub.com/donations/start/sparkbox-initiative" 
-              style="border:none; background: var(--bg-primary); color: var(--text-primary);" 
-              name="donateFrame" 
-              scrolling="yes" 
-              frameborder="0" 
-              marginheight="0px" 
-              marginwidth="0px" 
-              height="400px" 
-              width="350px" 
-              allowfullscreen>
-            </iframe>
-          </div>
-        </div>
-
-        <p class="text-sm opacity-80">
-          SparkBox Initiative is a registered nonprofit. All donations are tax-deductible.
-        </p>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ========== Footer ========== -->
-  <footer class="py-8 px-6 bg-[var(--accent-primary)] text-white text-center">
-    <div class="max-w-4xl mx-auto">
-      <p class="mb-2">SparkBox Initiative is a fiscally sponsored 501(c)(3) public charity under Hack Club.</p>
-      
-      <!-- Contact Information -->
-      <p class="mb-4">
-        Questions? Email us at 
-        <a href="mailto:teamsparkbox@gmail.com" class="underline hover:text-yellow-200 transition">
-          teamsparkbox@gmail.com
-        </a>
-      </p>
-      
-      <!-- Social Media -->
-      <div class="flex justify-center space-x-6 text-lg">
-        <a href="#" aria-label="Email" class="hover:opacity-80">✉️</a>
-        <a href="#" aria-label="Facebook" class="hover:opacity-80">📘</a>
-        <a href="#" aria-label="Twitter" class="hover:opacity-80">🐦</a>
-        <a href="#" aria-label="Instagram" class="hover:opacity-80">📸</a>
-        <a href="#" aria-label="LinkedIn" class="hover:opacity-80">💼</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ========== JavaScript ========== -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const htmlEl = document.documentElement;
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeIcon = document.getElementById('theme-icon');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const progressBar = document.getElementById('progress-bar');
-      const progressText = document.getElementById('progress-text');
-      const donateSection = document.getElementById('donate');
-
-      // Smooth scrolling with offset
-      document.querySelectorAll('.scroll-link').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          mobileMenu.classList.add('hidden');
-          
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          // Calculate offset (header height + padding)
-          const headerOffset = 80;
-          const elementPosition = targetElement.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        });
-      });
-
-      // Theme Toggle with radial animation
-      themeToggle.addEventListener('click', function() {
-        // Add animation class immediately
-        this.classList.add('active');
-        
-        // Get current theme
-        const currentTheme = htmlEl.getAttribute('data-theme');
-        
-        // Update theme
-        if (currentTheme === 'light') {
-          htmlEl.setAttribute('data-theme', 'dark');
-          themeIcon.textContent = '🔌';
-        } else {
-          htmlEl.setAttribute('data-theme', 'light');
-          themeIcon.textContent = '⚡';
-        }
-        
-        // Remove animation class after transition
-        setTimeout(() => {
-          this.classList.remove('active');
-        }, 800);
-      });
-
-      // Mobile Menu Toggle
-      document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-
-      // Progress Bar Animation - Scroll triggered
-      const updateProgressBar = () => {
-        // UPDATE THESE VALUES TO CHANGE THE PROGRESS
-        const currentAmount = 50;   // Current donations this month
-        const goalAmount = 250;     // Monthly goal
-        
-        // Validate inputs
-        if (currentAmount < 0 || goalAmount <= 0) {
-          console.error('Invalid progress values: currentAmount must be >= 0, goalAmount must be > 0');
-          return;
-        }
-        
-        // Calculate percentage (capped at 100%)
-        const percentage = Math.min((currentAmount / goalAmount) * 100, 100);
-        
-        // Format numbers with commas
-        const formattedCurrent = currentAmount.toLocaleString();
-        const formattedGoal = goalAmount.toLocaleString();
-        
-        // Update progress bar
-        progressBar.style.width = '0%';
-        setTimeout(() => {
-          progressBar.style.width = `${percentage}%`;
-        }, 100);
-        
-        // Update progress text
-        progressText.textContent = `We've raised $${formattedCurrent} of our $${formattedGoal} monthly goal!`;
-      };
-
-      // Check if element is in viewport
-      const isInViewport = (element) => {
-        const rect = element.getBoundingClientRect();
-        return (
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.bottom >= 0
-        );
-      };
-
-      // Scroll event listener for progress bar
-      let progressBarAnimated = false;
-      
-      const handleScroll = () => {
-        if (isInViewport(donateSection) && !progressBarAnimated) {
-          updateProgressBar();
-          progressBarAnimated = true;
-        }
-      };
-
-      // Initial check in case section is already in view
-      if (isInViewport(donateSection)) {
-        updateProgressBar();
-        progressBarAnimated = true;
-      }
-
-      // Listen for scroll events
-      window.addEventListener('scroll', handleScroll);
-    });
-  </script>
 </body>
 </html>
